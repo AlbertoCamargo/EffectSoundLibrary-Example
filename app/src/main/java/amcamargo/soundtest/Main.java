@@ -1,21 +1,17 @@
 package amcamargo.soundtest;
 
-import android.media.AudioManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 
-import static amcamargo.soundtest.R.raw.*;
-
 
 public class Main extends AppCompatActivity {
 
     private AudioManagement audioManagement = null;
+    private EffectSoundManager effectSoundManager = null;
     private AudioManagement.BackgroundAudio backgroundSound = null;
-    private AudioManagement.EffectSound effectSound = null;
-    int[] ARRAY_EFFECTS = new int[] { beast, car_breaking, crash, death_blood_splatter, explosion, fuck_you, noaaah, scream, war };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,13 +21,24 @@ public class Main extends AppCompatActivity {
 
         if (backgroundSound == null) {
             audioManagement = new AudioManagement();
-            backgroundSound = audioManagement.new BackgroundAudio(this, halloween_horror);
+            backgroundSound = audioManagement.new BackgroundAudio(this, R.raw.halloween_horror);
             backgroundSound.play();
         }
 
-        if (effectSound == null) {
-            int[] effects = ARRAY_EFFECTS;
-            effectSound = audioManagement.new EffectSound(this, effects);
+        if  (effectSoundManager == null) {
+            // Instance of effectSoundManager. receive as param the context
+            effectSoundManager = new EffectSoundManager(this);
+
+            // Adding all effects
+            effectSoundManager.addEffect("fuck you", R.raw.fuck_you);
+            effectSoundManager.addEffect("beast", R.raw.beast);
+            effectSoundManager.addEffect("blood", R.raw.death_blood_splatter);
+            effectSoundManager.addEffect("scream", R.raw.scream);
+            effectSoundManager.addEffect("crash", R.raw.crash);
+            effectSoundManager.addEffect("no", R.raw.noaaah);
+            effectSoundManager.addEffect("explosion", R.raw.explosion);
+            effectSoundManager.addEffect("war", R.raw.war);
+            effectSoundManager.addEffect("car breaking", R.raw.car_breaking);
         }
 
     }
@@ -61,7 +68,49 @@ public class Main extends AppCompatActivity {
         }
     }
 
-        public void fuckYou(View view) {
-            effectSound.play(fuck_you);
+    public void fuckYou(View view) {
+        effectSoundManager.playEffect("fuck you");
+    }
+
+    public void beast(View view) {
+        effectSoundManager.playEffect("beast");
+    }
+
+    public void carBreaking(View view) {
+        effectSoundManager.playEffect("car breaking");
+
+    }
+
+    public void screamingNo(View view) {
+        effectSoundManager.playEffect("no");
+    }
+
+    public void carCrashed(View view) {
+        effectSoundManager.playEffect("crash");
+    }
+
+    public void explosion(View view) {
+        effectSoundManager.playEffect("explosion");
+    }
+
+    public void war(View view) {
+        effectSoundManager.playEffect("war");
+    }
+
+    public void scream(View view) {
+        effectSoundManager.playEffect("scream");
+    }
+
+    public void blood(View view) {
+        effectSoundManager.playEffect("blood");
+    }
+
+    public void effectsEnable(View view) {
+        CheckBox checkBox = (CheckBox) findViewById(R.id.muteEffects);
+        if(checkBox.isChecked()){
+            effectSoundManager.mute();
+        } else {
+            effectSoundManager.unmute();
         }
+    }
 }

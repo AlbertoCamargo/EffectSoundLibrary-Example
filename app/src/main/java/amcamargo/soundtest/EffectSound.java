@@ -4,13 +4,13 @@ import android.content.Context;
 import android.media.SoundPool;
 
 /**
- * Created by Alberto Camargo on 21-Mar-16.
+ * Created by Alberto Mario Camargo Castro on 21-Mar-16.
  */
 public class EffectSound {
 
     String name; // identification for the effect
-    // Memory address: Value return by R.raw.effect, SoundId: value return by SoundPoll.load, StreamId
-    int memoryAddress, soundId;
+    // Memory address: Value return by R.raw.effect, SoundId: value return by SoundPoll.load, StreamId: use for stop or recover a sound. It is the value return by function soundPoolplay(...)
+    int memoryAddress, soundId, streamID = -1;
 
     public EffectSound(String name, int memoryAddress) {
         this.name = name;
@@ -18,9 +18,28 @@ public class EffectSound {
     }
 
     public void loadEffect(SoundPool soundPool, Context context) {
-        // params: Context, memory address of sound and priority
+        // params: Context, memory address of sound, priority
         this.soundId = soundPool.load(context, this.memoryAddress, 1);
     }
+
+    public void play(SoundPool soundPool, float volume) {
+        // stop in case of the sound is playing
+        if (this.streamID != -1)
+            soundPool.stop(this.streamID);
+
+        // params: ID return by load() method, volume left, priority, loop, rate (velocity 1. normal, 0.5 - 2)
+        this.streamID = soundPool.play(this.soundId, volume, volume, 1, 0, 0);
+
+    }
+
+    public void mute(SoundPool soundPool) {
+        soundPool.setVolume(this.streamID, 0, 0);
+    }
+
+    public void unMute(SoundPool soundPool, float volume) {
+        soundPool.setVolume(this.streamID, volume, volume);
+    }
+
 
 
 }

@@ -21,23 +21,107 @@
         android:layout_alignParentStart="true"
         android:checked="false" />
 
-    <Button
+    <ImageButton
+        android:onClick="war"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="fuck you"
+        android:id="@+id/imageButton2"
+        android:src="@drawable/tank"
+        android:background="#00ffffff"
+        android:layout_marginTop="36dp"
+        android:layout_below="@+id/imageButton3"
+        android:layout_alignParentStart="true" />
+
+    <ImageButton
+        android:onClick="explosion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton3"
+        android:src="@drawable/mushroom_cloud"
+        android:background="#00ffffff"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageButton
+        android:onClick="scream"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton4"
+        android:src="@drawable/edvard_unch"
+        android:background="#00ffffff"
+        android:layout_alignTop="@+id/imageButton2"
+        android:layout_alignStart="@+id/imageButton9" />
+
+    <ImageButton
+        android:onClick="carCrashed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton5"
+        android:src="@drawable/crashed"
+        android:background="#00ffffff"
+        android:layout_alignTop="@+id/imageButton7"
+        android:layout_alignStart="@+id/imageButton9" />
+
+    <ImageButton
+        android:onClick="screamingNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton6"
+        android:src="@drawable/crying"
+        android:background="#00ffffff"
+        android:layout_alignTop="@+id/imageButton9"
+        android:layout_alignStart="@+id/imageButton" />
+
+    <ImageButton
         android:onClick="fuckYou"
-        android:id="@+id/button"
-        android:layout_marginTop="68dp"
-        android:layout_alignParentTop="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton7"
+        android:src="@drawable/swearing"
+        android:background="#00ffffff"
+        android:layout_marginBottom="30dp"
+        android:layout_above="@+id/imageButton3"
+        android:layout_alignParentStart="true" />
+
+    <ImageButton
+        android:onClick="beast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton8"
+        android:src="@drawable/targaryen_house"
+        android:background="#00ffffff"
+        android:layout_alignTop="@+id/imageButton5"
+        android:layout_alignEnd="@+id/imageButton6"
+        android:layout_alignStart="@+id/imageButton6" />
+
+    <ImageButton
+        android:onClick="carBreaking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton9"
+        android:src="@drawable/car"
+        android:background="#00ffffff"
+        android:layout_above="@+id/imageButton2"
         android:layout_centerHorizontal="true" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
+    <ImageButton
+        android:onClick="blood"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="scream"
-        android:onClick="scream"
-        android:id="@+id/button2"
-        android:layout_below="@+id/button"
-        android:layout_centerHorizontal="true" />
+        android:id="@+id/imageButton"
+        android:src="@drawable/horror"
+        android:background="#00ffffff"
+        android:layout_alignTop="@+id/imageButton4"
+        android:layout_alignParentEnd="true" />
+
+    <CheckBox
+        android:onClick="effectsEnable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="mute effects"
+        android:id="@+id/muteEffects"
+        android:checked="false"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
+
 </RelativeLayout>

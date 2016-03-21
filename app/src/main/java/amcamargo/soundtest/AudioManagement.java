@@ -3,10 +3,6 @@ package amcamargo.soundtest;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.media.SoundPool;
-import android.util.Log;
-
-import java.util.ArrayList;
 
 /** Created by Alberto Camargo on 15-Mar-16. **/
 
@@ -56,32 +52,5 @@ public class AudioManagement {
            return  backgroundMusic == null ? false : backgroundMusic.isPlaying();
        }
    }
-
-    public class EffectSound {
-
-        private SoundPool effectPool;
-        private ArrayList<Integer> effects = new ArrayList<>();
-        private float currentVolume;
-
-        public EffectSound(Context ctx, int[] effects) {
-            // Getting the current volume
-            AudioManager audioController = (AudioManager) ctx.getSystemService(ctx.AUDIO_SERVICE);
-            currentVolume = audioController.getStreamVolume(AudioManager.STREAM_MUSIC) / audioController.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-
-            effectPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
-
-            for (int effect: effects) {
-                int v  = effectPool.load(ctx, effect, 1);
-                Log.d("valueeeeeeeeeee", "" + v);
-                this.effects.add(v);
-            }
-        }
-
-        public void play(int effect) {
-            Log.d("valueeeeeeeeeee2222", "" + effect);
-            effect = effects.get(this.effects.indexOf(effect));
-            effectPool.play(effect, currentVolume, currentVolume, 1, 0, 1);
-        }
-    }
 
 }
