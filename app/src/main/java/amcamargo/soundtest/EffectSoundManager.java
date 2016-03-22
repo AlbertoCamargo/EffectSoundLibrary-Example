@@ -4,8 +4,7 @@ import android.content.Context;
 import android.media.AudioManager;
 import android.media.SoundPool;
 
-import java.util.Collection;
-import java.util.Enumeration;
+
 import java.util.Hashtable;
 import java.util.Iterator;
 
@@ -13,7 +12,6 @@ import java.util.Iterator;
  * Created by Alberto Camargo on 21-Mar-16.
  */
 public class EffectSoundManager {
-    float volume;
     Context context;
     Hashtable<String,EffectSound> effects = new Hashtable<>();
     SoundPool soundpool;
@@ -29,39 +27,35 @@ public class EffectSoundManager {
         this.soundpool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
         this.context = context;
 
-        // Getting the current volume
-        AudioManager audioController = (AudioManager) this.context.getSystemService(this.context.AUDIO_SERVICE);
-        volume = audioController.getStreamVolume(AudioManager.STREAM_MUSIC) / audioController.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-
     }
 
     public void addEffect(String name, int addressMemoryEffect) {
         // {'explosion': Object EffectSound}
         EffectSound effectSound =  new  EffectSound(name, addressMemoryEffect);
         effectSound.loadEffect(this.soundpool, this.context);
-        effects.put(name, effectSound );
+        effects.put(name, effectSound);
     }
 
     public  void playEffect(String name) {
         if (!this.mute)
-            effects.get(name).play(this.soundpool, volume);
-
+            effects.get(name).play(this.soundpool);
     }
 
     public  void mute() {
         this.mute = true;
-        this.soundpool.autoPause();
-
-       /* Iterator<EffectSound> values = this.effects.values().iterator();
-        do {
-            values.next().mute(this.soundpool);
-        } while (values.hasNext());
-        */
-
+        Iterator<EffectSound> values = this.effects.values().iterator();
+        do this.soundpool.stop(values.next().streamID); while (values.hasNext());
     }
 
     public  void unmute() {
         this.mute = false;
+    }
+
+    public void pause() {
+        this.soundpool.autoPause();
+    }
+
+    public void resume() {
         this.soundpool.autoResume();
     }
 

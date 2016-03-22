@@ -9,9 +9,8 @@ import android.widget.CheckBox;
 
 public class Main extends AppCompatActivity {
 
-    private AudioManagement audioManagement = null;
+    private BackgroundSound backgroundSound = null;
     private EffectSoundManager effectSoundManager = null;
-    private AudioManagement.BackgroundAudio backgroundSound = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,8 +19,7 @@ public class Main extends AppCompatActivity {
 
 
         if (backgroundSound == null) {
-            audioManagement = new AudioManagement();
-            backgroundSound = audioManagement.new BackgroundAudio(this, R.raw.halloween_horror);
+            backgroundSound = new BackgroundSound(this, R.raw.halloween_horror);
             backgroundSound.play();
         }
 
@@ -48,6 +46,7 @@ public class Main extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         backgroundSound.pause();
+        effectSoundManager.pause();
         Log.d("message Event", "On pause");
     }
 
@@ -55,6 +54,7 @@ public class Main extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         backgroundSound.resume();
+        effectSoundManager.resume();
         Log.d("message Event", "On resume");
     }
 
@@ -68,18 +68,22 @@ public class Main extends AppCompatActivity {
         }
     }
 
-    public void fuckYou(View view) {
-        effectSoundManager.playEffect("fuck you");
+    public void effectsEnable(View view) {
+        CheckBox checkBox = (CheckBox) findViewById(R.id.muteEffects);
+        if(checkBox.isChecked()){
+            effectSoundManager.mute();
+        } else {
+            effectSoundManager.unmute();
+        }
     }
+
+    public void fuckYou(View view) { effectSoundManager.playEffect("fuck you"); }
 
     public void beast(View view) {
         effectSoundManager.playEffect("beast");
     }
 
-    public void carBreaking(View view) {
-        effectSoundManager.playEffect("car breaking");
-
-    }
+    public void carBreaking(View view) { effectSoundManager.playEffect("car breaking"); }
 
     public void screamingNo(View view) {
         effectSoundManager.playEffect("no");
@@ -103,14 +107,5 @@ public class Main extends AppCompatActivity {
 
     public void blood(View view) {
         effectSoundManager.playEffect("blood");
-    }
-
-    public void effectsEnable(View view) {
-        CheckBox checkBox = (CheckBox) findViewById(R.id.muteEffects);
-        if(checkBox.isChecked()){
-            effectSoundManager.mute();
-        } else {
-            effectSoundManager.unmute();
-        }
     }
 }
